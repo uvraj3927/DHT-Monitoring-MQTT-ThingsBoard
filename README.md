@@ -1,23 +1,23 @@
-# 🌤️ AmbientMQTT: NodeMCU Weather Station
+# 🌤️ DHT-Monitoring-MQTT-ThingsBoard: NodeMCU Weather Station
 
 [![PlatformIO](https://img.shields.io/badge/PlatformIO-Build-orange?logo=platformio&style=flat-square)](https://platformio.org/)
 [![Framework](https://img.shields.io/badge/Framework-Arduino-blue?logo=arduino&style=flat-square)](https://www.arduino.cc/)
 [![Cloud](https://img.shields.io/badge/Broker-ThingsBoard-blue?logo=thingsboard&style=flat-square)](https://thingsboard.io/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg?style=flat-square)](LICENSE)
 
-AmbientMQTT is a secure, lightweight, and efficient Internet of Things (IoT) weather station built using a **NodeMCU ESP8266** microcontroller and a **DHT11** temperature and humidity sensor. Telemetry data is parsed locally and transmitted securely over the **MQTT protocol** to a customized dashboard on the **ThingsBoard Cloud**.
+DHT-Monitoring-MQTT-ThingsBoard  is a secure, lightweight, and efficient Internet of Things (IoT) weather station built using a **NodeMCU ESP8266** microcontroller and a **DHT11** temperature and humidity sensor. Telemetry data is parsed locally and transmitted securely over the **MQTT protocol** to a customized dashboard on the **ThingsBoard Cloud**.
 
 ---
 
-## 📷 Real Circuit Setup
+##  Real Circuit 
 
 Below is the physical assembly of the hardware components:
 
-![Real Circuit Setup](images/real ckt.jpg)
+![Real Circuit Setup](images/realckt.jpg)
 
 ---
 
-## 🔍 Project Overview & Features
+## Overview & Features
 
 Managing microclimates requires continuous data acquisition. This project provides a low-cost, self-healing, and secure solution for transmitting environmental metrics.
 
@@ -29,7 +29,7 @@ Managing microclimates requires continuous data acquisition. This project provid
 
 ---
 
-## 🛠️ System Architecture
+## System Architecture
 
 The data pipeline runs sequentially from the physical sensor up to the cloud dashboard:
 
@@ -49,16 +49,6 @@ graph TD
 
 ---
 
-## 📦 Bill of Materials (BOM)
-
-| Component | Description | Quantity | Link |
-| :--- | :--- | :--- | :--- |
-| **NodeMCU v2 (ESP-12E)** | WiFi-enabled ESP8266 development board | 1 | [Datasheet](https://components101.com/development-boards/nodemcu-esp8266-pinout-features-and-datasheet) |
-| **DHT11 Sensor** | Basic digital temperature and humidity sensor | 1 | [Datasheet](https://components101.com/sensors/dht11-temperature-sensor) |
-| **Jumper Wires** | Female-to-Female breadboard Dupont wires | 3 | - |
-| **Micro-USB Cable** | For uploading firmware and serial debugging | 1 | - |
-
----
 
 ## 🔌 Hardware Setup & Pinout
 
@@ -71,38 +61,6 @@ Connect the DHT11 sensor to the NodeMCU development board according to the pin m
 | **DATA**| **D2** | **GPIO4** | Yellow | Single-Bus Digital Signal |
 
 ![Hardware Wiring Diagram](images/wiring_diagram.png)
-
----
-
-## 🔒 Configuration & Security Setup
-
-Credentials are separated from the main source files. To construct the local header configuration:
-
-1.  Create a file named `config.h` in the `include/` directory.
-2.  Paste the template code below and enter your credentials.
-
-### `include/config.h` Template:
-```cpp
-#ifndef CONFIG_H
-#define CONFIG_H
-
-// Wi-Fi Credentials
-#define WIFI_SSID "YOUR_WIFI_SSID"
-#define WIFI_PASSWORD "YOUR_WIFI_PASSWORD"
-
-// ThingsBoard Credentials
-#define TB_ACCESS_TOKEN "YOUR_THINGSBOARD_ACCESS_TOKEN"
-
-#endif // CONFIG_H
-```
-
-### Git Ignored Files
-The [.gitignore](.gitignore) contains policies to exclude compile logs and your credential headers from your git version history:
-```gitignore
-.pio
-.vscode/
-include/config.h
-```
 
 ---
 
@@ -129,22 +87,4 @@ pio run --target upload
 pio device monitor
 ```
 
----
 
-## 🧹 Git Housekeeping & Tracking
-
-To clean build cache, stage documentation files, and push them to your repository, run:
-
-```bash
-# 1. Clean build artifacts
-pio run --target clean
-
-# 2. Stage updated documentation and assets
-git add README.md images/architecture_flow.png images/wiring_diagram.png images/real\ ckt.jpg
-
-# 3. Commit changes
-git commit -m "Update README with circuit setups, architecture flows and BOM"
-
-# 4. Push to remote origin
-git push
-```
